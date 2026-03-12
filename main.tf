@@ -182,39 +182,39 @@ resource "aws_ecs_cluster" "ecs-cluster-emock-backend" {
   }
 }
 
-# resource "aws_key_pair" "key-pair-emock-backend" {
-#   key_name   = "deployer-key"
-#   # public_key = file("/Users/developer/.ssh/emock-backend-key.pub")
-#     public_key = var.ssh_public_key
+resource "aws_key_pair" "key-pair-emock-backend" {
+  key_name   = "deployer-key"
+  # public_key = file("/Users/developer/.ssh/emock-backend-key.pub")
+    public_key = var.ssh_public_key
 
-#   tags = {
-#     Name = "key-pair-emock-backend"
-#   }
-# }
+  tags = {
+    Name = "key-pair-emock-backend"
+  }
+}
 
-# resource "aws_instance" "api-emock-backend" {
-#   ami = "ami-020cba7c55df1f615"
-#   # instance_type = "t3.small" # 2Vcpu 2GB
-#   instance_type               = "t2.micro" # 1Vcpu 1GB
-#   subnet_id                   = aws_subnet.public-subnet-emock-backend.id
-#   vpc_security_group_ids      = [aws_security_group.security-group-emock-backend.id]
-#   key_name                    = aws_key_pair.key-pair-emock-backend.key_name
-#   associate_public_ip_address = true
+resource "aws_instance" "api-emock-backend" {
+  ami = "ami-020cba7c55df1f615"
+  # instance_type = "t3.small" # 2Vcpu 2GB
+  instance_type               = "t2.micro" # 1Vcpu 1GB
+  subnet_id                   = aws_subnet.public-subnet-emock-backend.id
+  vpc_security_group_ids      = [aws_security_group.security-group-emock-backend.id]
+  key_name                    = aws_key_pair.key-pair-emock-backend.key_name
+  associate_public_ip_address = true
 
-#   # provisioner "local-exec" {
-#   #   command = "curl -fsSl https://get.docker.com | sh"
-#   #   # Cria um arquivo na máquina local
-#   # }
-#   user_data = <<-EOF
-#               #!/bin/bash
-#               curl -fsSl https://get.docker.com | sh
-#               sudo usermod -aG docker ubuntu
-#               EOF
+  # provisioner "local-exec" {
+  #   command = "curl -fsSl https://get.docker.com | sh"
+  #   # Cria um arquivo na máquina local
+  # }
+  user_data = <<-EOF
+              #!/bin/bash
+              curl -fsSl https://get.docker.com | sh
+              sudo usermod -aG docker ubuntu
+              EOF
 
-#   tags = {
-#     Name = "api-emock-backend"
-#   }
-# }
+  tags = {
+    Name = "api-emock-backend"
+  }
+}
 
 
 # resource "aws_instance" "recurso-subnet-privada" {
